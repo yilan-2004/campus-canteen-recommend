@@ -1,0 +1,22 @@
+// 第五阶段:推荐系统前端接入说明
+//
+// 推荐接口的请求/响应结构已经定型,前端可直接对接:
+//   1. 首页加载 - 调 GET /api/recommend/hot?limit=10(匿名)
+//   2. 个性化 - 调 GET /api/recommend/mixed?userId={id}&limit=10(需登录)
+//   3. 场景 - 调 GET /api/recommend/scenarios?scenario=LUNCH&userId={id}&limit=10
+//   4. 反馈 - 用户点推荐卡片时 POST /api/recommend/feedback?scenario=...&dishId=...&action=CLICK
+//            用户通过推荐下单时再 POST 一次,action=ORDER
+//
+// 响应结构(每个推荐项):
+//   {
+//     "id": 8, "name": "红烧牛肉面", "price": 16.80,
+//     "tags": [...], "avgRating": 4.70, "salesCount": 180,
+//     "score": 7.8521,           // 推荐分(0-10)
+//     "reasonType": "MIXED:A",   // 推荐类型 + A/B 变体(冒号分隔)
+//     "reason": "符合你的「微辣 / 高蛋白」偏好"   // 中文推荐原因
+//   }
+//
+// 调试工具:
+//   - http://localhost:8080/doc.html      (Knife4j,带"在线调试"功能)
+//   - http://localhost:8080/h2            (H2 控制台,test 环境可用)
+//
